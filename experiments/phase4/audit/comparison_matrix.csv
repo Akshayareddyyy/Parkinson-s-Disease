@@ -1,0 +1,15 @@
+comparison_id,methodology,model_name,matched_counterpart,task,features,n_dev_records,subject_split,preprocessing,aggregation_type,comm_rounds,status
+CMP-01,Centralized,Centralized Logistic Regression,FedAvg-LR (K=26),Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,StandardScaler,N/A (Centralized),0,Planned
+CMP-02,Federated,FedAvg-LR (K=26 Natural),Centralized Logistic Regression,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Exact Parameter FedAvg,40,Planned
+CMP-03,Federated,FedProx-LR (mu=0.01 K=26),Centralized L2-Regularized LR,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Proximal Parameter FedProx,40,Planned
+CMP-04,Federated,FedProx-LR (mu=0.1 K=26),Centralized L2-Regularized LR,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Proximal Parameter FedProx,40,Planned
+CMP-05,Federated,FedProx-LR (mu=1.0 K=26),Centralized L2-Regularized LR,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Proximal Parameter FedProx,40,Planned
+CMP-06,Centralized,Centralized Ridge Regression,FedAvg-Ridge (K=26),Continuous Regression,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,StandardScaler,N/A (Centralized),0,Planned
+CMP-07,Federated,FedAvg-Ridge (K=26 Natural),Centralized Ridge Regression,Continuous Regression,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Exact Parameter FedAvg,40,Planned
+CMP-08,Centralized,Centralized Random Forest,CED-Forest RF (K=26),Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,StandardScaler,N/A (Centralized),0,Planned
+CMP-09,Federated,Client-Ensembled Distributed Forest (CED-RF),Centralized Random Forest,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Distributed Soft-Voting Ensemble,1,Planned
+CMP-10,Centralized,Centralized Extra Trees,CED-Forest ET (K=26),Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,StandardScaler,N/A (Centralized),0,Planned
+CMP-11,Federated,Client-Ensembled Distributed Forest (CED-ET),Centralized Extra Trees,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Distributed Soft-Voting Ensemble,1,Planned
+CMP-12,Federated,FedAvg-LR (Multi-Center K=5 Natural),Centralized Logistic Regression,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Exact Parameter FedAvg,40,Planned
+CMP-13,Federated,FedAvg-LR (Multi-Center K=5 Balanced),Centralized Logistic Regression,Binary Classification,19 Permitted,3517-3627,26 Dev / 7 Val / 9 Test,Decentralized Sufficient Stats,Exact Parameter FedAvg,40,Planned
+

@@ -1,0 +1,11 @@
+comparison,metric,raw_p_unrounded,raw_p_str,holm_adj_p_m5,holm_adj_p_m10,confirmatory
+Extra Trees vs LR,ROC-AUC,0.43164062,0.4316,0.8633,1.0,False
+Extra Trees vs LR,Balanced Accuracy,0.32226562,0.3223,1.0,1.0,False
+Extra Trees vs Linear SVM,ROC-AUC,0.43164062,0.4316,0.8633,1.0,False
+Extra Trees vs Linear SVM,Balanced Accuracy,0.43164062,0.4316,1.0,1.0,False
+Extra Trees vs Random Forest,ROC-AUC,0.00390625,0.0039,0.0195,0.0391,False
+Extra Trees vs Random Forest,Balanced Accuracy,0.03710938,0.0371,0.1855,0.334,False
+Extra Trees vs HistGradientBoosting,ROC-AUC,0.13085938,0.1309,0.3926,0.916,False
+Extra Trees vs HistGradientBoosting,Balanced Accuracy,0.27539062,0.2754,1.0,1.0,False
+Extra Trees vs GradientBoosting,ROC-AUC,0.06445312,0.0645,0.2578,0.5156,False
+Extra Trees vs GradientBoosting,Balanced Accuracy,0.27539062,0.2754,1.0,1.0,False

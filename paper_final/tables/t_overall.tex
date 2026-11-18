@@ -1,0 +1,12 @@
+\begin{table}[!t]\centering\caption{Overall comparison on locked-test subjects (means over 10 partitions) with training time or total communication volume.}\label{tab:overall}\scriptsize\setlength{\tabcolsep}{3pt}\begin{tabular}{lcccc}\toprule Model & Bal.Acc. & AUC & MCC & Train time / comm.\\\midrule
+Logistic Regression & 0.562 & 0.591 & 0.117 & 0.0115 s\\
+Linear SVM & 0.561 & 0.590 & 0.113 & 0.00819 s\\
+Random Forest & 0.540 & 0.520 & 0.068 & 0.863 s\\
+Extra Trees & 0.611 & 0.636 & 0.210 & 0.425 s\\
+FedAvg-LR (K=26) & 0.597 & 0.629 & 0.185 & 333 kB\\
+FedProx-LR ($\mu$=0.1) & 0.598 & 0.629 & 0.185 & 333 kB\\
+Fed-RF (ensemble) & 0.496 & 0.504 & -0.011 & 0.929 s, 331 kB\\
+Fed-ET (ensemble) & 0.502 & 0.512 & 0.001 & 0.755 s, 590 kB\\
+VQC & 0.538 & 0.540 & 0.066 & 28 s\\
+QNN & 0.518 & 0.523 & 0.030 & 30.3 s\\
+\bottomrule\end{tabular}\end{table}

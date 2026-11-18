@@ -1,0 +1,92 @@
+{
+  "investigation_summary": {
+    "reported_pooled_count": 12693,
+    "actual_pooled_count": 12678,
+    "discrepancy_magnitude": 15,
+    "root_cause": "Reporting / typographical error in banner string in scratch/audit_phase3_final.py (hardcoded string '12,693 TEST PREDICTIONS' instead of dynamic sum 12,678). All underlying predictions, row sums, and confusion matrices sum to exactly 12,678.",
+    "is_prediction_error": false,
+    "is_aggregation_error": false,
+    "is_reporting_error": true
+  },
+  "per_model_pooled_confusion_matrices": {
+    "LR": {
+      "TN": 3633,
+      "FP": 4075,
+      "FN": 1859,
+      "TP": 3111,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.6259557344064386,
+      "Agg_Spec": 0.47132848988064346,
+      "Agg_Acc": 0.5319451017510648,
+      "Agg_BalAcc": 0.548642112143541
+    },
+    "Linear SVM": {
+      "TN": 3648,
+      "FP": 4060,
+      "FN": 1930,
+      "TP": 3040,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.6116700201207244,
+      "Agg_Spec": 0.47327451997924236,
+      "Agg_Acc": 0.5275280012620287,
+      "Agg_BalAcc": 0.5424722700499833
+    },
+    "Random Forest": {
+      "TN": 3598,
+      "FP": 4110,
+      "FN": 2014,
+      "TP": 2956,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.5947686116700202,
+      "Agg_Spec": 0.46678775298391284,
+      "Agg_Acc": 0.5169585108061209,
+      "Agg_BalAcc": 0.5307781823269665
+    },
+    "Extra Trees": {
+      "TN": 4228,
+      "FP": 3480,
+      "FN": 1731,
+      "TP": 3239,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.6517102615694165,
+      "Agg_Spec": 0.5485210171250648,
+      "Agg_Acc": 0.5889730241362992,
+      "Agg_BalAcc": 0.6001156393472407
+    },
+    "HistGradientBoosting": {
+      "TN": 3704,
+      "FP": 4004,
+      "FN": 2509,
+      "TP": 2461,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.49517102615694164,
+      "Agg_Spec": 0.4805396990140114,
+      "Agg_Acc": 0.4862754377662092,
+      "Agg_BalAcc": 0.4878553625854765
+    },
+    "GradientBoosting": {
+      "TN": 3929,
+      "FP": 3779,
+      "FN": 2629,
+      "TP": 2341,
+      "Pooled_Total": 12678,
+      "Agg_Sens": 0.4710261569416499,
+      "Agg_Spec": 0.5097301504929943,
+      "Agg_Acc": 0.4945575011831519,
+      "Agg_BalAcc": 0.4903781537173221
+    }
+  },
+  "test_records_by_seed": {
+    "0": 1306,
+    "1": 1255,
+    "2": 1245,
+    "3": 1244,
+    "4": 1285,
+    "5": 1265,
+    "6": 1202,
+    "7": 1325,
+    "8": 1215,
+    "9": 1336
+  },
+  "total_test_records": 12678
+}

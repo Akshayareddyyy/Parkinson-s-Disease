@@ -1,0 +1,221 @@
+seed,model,evaluation_mode,condition,noise_type,noise_param,shots,primary_metric_name,primary_metric_val,eval_time_s
+0,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.4022,0.05
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,9.2125,0.05
+0,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.4026,70.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,9.2114,70.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.4038,70.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,9.2018,70.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.4124,70.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,9.1707,70.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.4242,70.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,9.1551,70.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.4018,60.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,9.2114,60.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.4015,60.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,9.2016,60.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.3988,60.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,9.1641,60.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.3882,2.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,9.2158,2.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.3984,2.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,9.195,2.0
+0,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.4031,2.0
+0,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,9.2056,2.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.4868,0.05
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,6.642,0.05
+1,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.4868,70.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,6.6404,70.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.4861,70.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,6.6266,70.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.484,70.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,6.5701,70.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.4843,70.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,6.5102,70.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.4868,60.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,6.6404,60.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.4876,60.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,6.6265,60.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.4949,60.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,6.5682,60.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.4977,2.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,6.6262,2.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.4791,2.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,6.6411,2.0
+1,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.4872,2.0
+1,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,6.6436,2.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.6204,0.05
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,7.5995,0.05
+2,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.6207,70.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,7.6002,70.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.6217,70.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,7.6063,70.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.6241,70.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,7.6294,70.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.6291,70.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,7.6515,70.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.6206,60.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,7.5996,60.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.6206,60.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,7.6011,60.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.618,60.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,7.6074,60.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.6287,2.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,7.6057,2.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.6076,2.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,7.6016,2.0
+2,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.6177,2.0
+2,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,7.5982,2.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.3471,0.05
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,6.018,0.05
+3,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.3471,70.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,6.0168,70.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.347,70.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,6.0065,70.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.3462,70.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,5.9789,70.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.346,70.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,5.9528,70.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.3469,60.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,6.0171,60.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.3461,60.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,6.0093,60.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.3442,60.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,5.9775,60.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.3732,2.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,6.0148,2.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.3407,2.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,6.0138,2.0
+3,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.3479,2.0
+3,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,6.0156,2.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.5251,0.05
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,7.0946,0.05
+4,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.5253,70.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,7.0946,70.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.5256,70.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,7.0941,70.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.5283,70.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,7.0935,70.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.5306,70.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,7.0952,70.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.5246,60.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,7.0948,60.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.5251,60.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,7.0961,60.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.5237,60.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,7.1017,60.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.5099,2.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,7.0884,2.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.5164,2.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,7.0963,2.0
+4,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.5261,2.0
+4,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,7.0947,2.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.7475,0.05
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,5.2133,0.05
+5,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.7475,70.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,5.215,70.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.7479,70.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,5.2295,70.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.7479,70.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,5.2917,70.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.7467,70.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,5.3661,70.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.7475,60.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,5.2141,60.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.7478,60.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,5.2215,60.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.7487,60.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,5.2545,60.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.7414,2.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,5.1991,2.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.7443,2.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,5.2126,2.0
+5,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.745,2.0
+5,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,5.2109,2.0
+6,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.7631,0.05
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,6.1745,0.05
+6,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.7628,70.0
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,6.174,70.0
+6,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.7628,70.0
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,6.1698,70.0
+6,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.7627,70.0
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,6.1537,70.0
+6,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.7635,70.0
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,6.1382,70.0
+6,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.7631792376317923,62.67611145000001
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,6.174505023642228,62.67611145000001
+6,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.7643378519290929,51.418385899999976
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,6.1744271906347015,51.418385899999976
+6,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.7693198934074846,50.06912339999985
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,6.174087972272376,50.06912339999985
+6,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.7661916348047735,0.6630655000001298
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,6.177289134901238,0.6630655000001298
+6,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.7653806047966633,0.9124782500000492
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,6.171369346748768,0.9124782500000492
+6,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.7639902676399026,1.9613339499999256
+6,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,6.17565611221261,1.9613339499999256
+7,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.5054694073806948,0.05
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,5.83557370308499,0.05
+7,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.5053492006250752,95.58479435000004
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,5.835106424607108,95.58479435000004
+7,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.5054694073806947,98.23242030000006
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,5.831008874274265,98.23242030000006
+7,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.5072725087149899,98.77704040000003
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,5.814941805768161,98.77704040000003
+7,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.5040269263132588,100.48782289999986
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,5.798972458225014,100.48782289999986
+7,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.5054694073806949,69.98831599999994
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,5.8353739868703,69.98831599999994
+7,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.5052289938694554,70.47958515000005
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,5.833593610458472,70.47958515000005
+7,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.5022238249789638,70.4397514499999
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,5.8260458465833596,70.4397514499999
+7,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.5126818127178748,0.7861863999996785
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,5.832803591207144,0.7861863999996785
+7,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.5072725087149897,1.0541411499998503
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,5.8344022307833905,1.0541411499998503
+7,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.5087149897824258,2.213621950000288
+7,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,5.834734930385805,2.213621950000288
+8,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.253506901582314,0.05
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,6.576840159212339,0.05
+8,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.25350690158231404,78.41463294999994
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,6.5767832154643795,78.41463294999994
+8,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.25530243519245877,81.5274274000003
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,6.576263228106955,81.5274274000003
+8,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.2639434406912805,82.03512075000026
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,6.573813289326344,82.03512075000026
+8,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.2756144091572214,83.83406150000019
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,6.570521521284621,83.83406150000019
+8,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.25339468073168003,56.17063740000003
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,6.576701275293852,56.17063740000003
+8,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.2529457973291438,56.28990520000025
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,6.5754548802148545,56.28990520000025
+8,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.24868140500504998,56.64909794999994
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,6.569995408469555,56.64909794999994
+8,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.25642464369879925,0.6765918499995678
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,6.583211462064177,0.6765918499995678
+8,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.2526091347772416,1.1237018500000886
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,6.578818859875466,1.1237018500000886
+8,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.25339468073168,2.0147053000000597
+8,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,6.576708421060515,2.0147053000000597
+9,9-Qubit VQC,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,ROC-AUC,0.6732627703635528,0.05
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Ideal Statevector,None,0.0,,MAE,7.163494805695473,0.05
+9,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,ROC-AUC,0.6729559748427673,65.07738029999973
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.0001),Depolarizing,0.0001,,MAE,7.163208975323454,65.07738029999973
+9,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,ROC-AUC,0.6712685994784477,63.31513974999962
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.001),Depolarizing,0.001,,MAE,7.160696259558751,63.31513974999962
+9,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,ROC-AUC,0.6666666666666667,61.76848605000032
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.005),Depolarizing,0.005,,MAE,7.158017116094295,61.76848605000032
+9,9-Qubit VQC,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,ROC-AUC,0.6589967786470317,65.56258759999992
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Depolarizing (p=0.01),Depolarizing,0.01,,MAE,7.170631236403923,65.56258759999992
+9,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,ROC-AUC,0.6729559748427673,47.92886604999967
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.001),Phase Damping,0.001,,MAE,7.163249445571939,47.92886604999967
+9,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,ROC-AUC,0.6732627703635528,45.28279359999988
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.01),Phase Damping,0.01,,MAE,7.161059132903567,45.28279359999988
+9,9-Qubit VQC,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,ROC-AUC,0.6729559748427675,42.75917560000016
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Phase Damping (gamma=0.05),Phase Damping,0.05,,MAE,7.154448856900742,42.75917560000016
+9,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,ROC-AUC,0.6795520785396534,0.5956770000002507
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=1000),Shots,,1000.0,MAE,7.176684285915762,0.5956770000002507
+9,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,ROC-AUC,0.6770977143733703,1.0283879000003253
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=4000),Shots,,4000.0,MAE,7.1672450835413315,1.0283879000003253
+9,9-Qubit VQC,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,ROC-AUC,0.670041417395306,1.763101000000006
+9,9-Qubit PQC-R,Stratified-Subset (N=200),Finite Shots (S=10000),Shots,,10000.0,MAE,7.169757921030512,1.763101000000006

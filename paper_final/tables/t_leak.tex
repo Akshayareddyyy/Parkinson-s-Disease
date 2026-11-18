@@ -1,0 +1,10 @@
+\begin{table}[!t]\centering\caption{Leakage ablation on identical test records (means over 10 partitions). Only the first row is a valid estimate of generalisation to unseen patients.}\label{tab:leak}\scriptsize\setlength{\tabcolsep}{3pt}\begin{tabular}{llccc}\toprule Setting & Model & Acc. & AUC & MCC\\\midrule
+Subject-wise, clean features & LR & 0.533 & 0.591 & 0.117\\
+Subject-wise, clean features & RF & 0.514 & 0.520 & 0.068\\
+Record-wise split, clean features & LR & 0.624 & 0.683 & 0.248\\
+Record-wise split, clean features & RF & 0.941 & 0.987 & 0.882\\
+Subject-wise, + total\_UPDRS & LR & 0.919 & 0.980 & 0.824\\
+Subject-wise, + total\_UPDRS & RF & 0.935 & 0.975 & 0.847\\
+Subject-wise, + motor\_UPDRS & LR & 0.987 & 1.000 & 0.970\\
+Subject-wise, + motor\_UPDRS & RF & 0.999 & 1.000 & 0.999\\
+\bottomrule\end{tabular}\end{table}

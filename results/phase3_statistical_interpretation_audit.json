@@ -1,0 +1,27 @@
+{
+  "audit_name": "Phase 3 Statistical Interpretation Audit",
+  "methodological_caveats": {
+    "subject_overlap_dependence": "The 10 subject-wise partitions reuse the same 42 unique subjects (26 dev, 7 val, 9 test per partition). Observations across folds are statistically dependent, violating the independence assumption of paired Wilcoxon and paired t-tests.",
+    "exploratory_status": "All hypothesis tests across partitions must be treated as exploratory descriptive diagnostics, never confirmatory proofs of statistical significance.",
+    "varying_target_thresholds": "Each partition derives its binarization threshold tau strictly from its own development partition (ranging from 18.000 to 23.917). The classification tasks across seeds are clinically related but mathematically non-identical.",
+    "pooled_records_nature": "The 12,678 pooled test instances represent repeated evaluations of records from 42 subjects across 10 splits, not 12,678 independent clinical observations."
+  },
+  "exploratory_wilcoxon_tests_against_extra_trees": {
+    "roc_auc": {
+      "ET_vs_LR": {"raw_p": 0.4316, "holm_adj_p": 0.8633, "confirmatory": false},
+      "ET_vs_Linear_SVM": {"raw_p": 0.4316, "holm_adj_p": 0.4316, "confirmatory": false},
+      "ET_vs_Random_Forest": {"raw_p": 0.0039, "holm_adj_p": 0.0195, "confirmatory": false},
+      "ET_vs_HistGradientBoosting": {"raw_p": 0.1309, "holm_adj_p": 0.3926, "confirmatory": false},
+      "ET_vs_GradientBoosting": {"raw_p": 0.0645, "holm_adj_p": 0.2578, "confirmatory": false}
+    },
+    "balanced_accuracy": {
+      "ET_vs_LR": {"raw_p": 0.3223, "holm_adj_p": 0.6445, "confirmatory": false},
+      "ET_vs_Linear_SVM": {"raw_p": 0.4316, "holm_adj_p": 0.4316, "confirmatory": false},
+      "ET_vs_Random_Forest": {"raw_p": 0.0371, "holm_adj_p": 0.1855, "confirmatory": false},
+      "ET_vs_HistGradientBoosting": {"raw_p": 0.2754, "holm_adj_p": 1.0000, "confirmatory": false},
+      "ET_vs_GradientBoosting": {"raw_p": 0.2754, "holm_adj_p": 0.8262, "confirmatory": false}
+    }
+  },
+  "reporting_recommendation": "Per-seed results and ten-seed mean +/- standard deviation (with descriptive intervals) must remain the primary reporting format. Extra Trees is reported as the numerically strongest candidate without claiming proven statistical superiority."
+}
+

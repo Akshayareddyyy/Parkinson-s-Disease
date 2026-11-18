@@ -1,0 +1,24 @@
+\begin{table}[!t]\centering\caption{Statistical evaluation over 10 partitions. Top: one-sample $t$-test of ROC-AUC against 0.5. Bottom: two-sided Wilcoxon signed-rank test of Extra Trees against each model (positive difference = ET higher). Holm correction within each block.}\label{tab:stats}\scriptsize\setlength{\tabcolsep}{3pt}\begin{tabular}{lccc}\toprule Model & Mean AUC & $p$ & $p_{\mathrm{Holm}}$\\\midrule
+Extra Trees & 0.636 & 0.0033 & 0.036\\
+FedAvg-LR (K=26) & 0.629 & 0.0094 & 0.094\\
+FedAvg-LR (50\% clients) & 0.601 & 0.0306 & 0.183\\
+Fed-ET (ensemble) & 0.512 & 0.3944 & 1.000\\
+Fed-RF (ensemble) & 0.504 & 0.8160 & 1.000\\
+FedProx-LR ($\mu$=0.1) & 0.629 & 0.0095 & 0.094\\
+Logistic Regression & 0.591 & 0.0228 & 0.160\\
+QNN & 0.523 & 0.4191 & 1.000\\
+Random Forest & 0.520 & 0.6926 & 1.000\\
+Linear SVM & 0.590 & 0.0195 & 0.156\\
+VQC & 0.540 & 0.3711 & 1.000\\
+\midrule Model & $\Delta$AUC (ET$-$model) & $p$ & $p_{\mathrm{Holm}}$\\\midrule
+FedAvg-LR (K=26) & +0.008 & 0.9219 & 1.000\\
+FedAvg-LR (50\% clients) & +0.036 & 0.5566 & 1.000\\
+Fed-ET (ensemble) & +0.124 & 0.0137 & 0.123\\
+Fed-RF (ensemble) & +0.133 & 0.0137 & 0.123\\
+FedProx-LR ($\mu$=0.1) & +0.008 & 0.9219 & 1.000\\
+Logistic Regression & +0.046 & 0.3750 & 1.000\\
+QNN & +0.113 & 0.0039 & 0.039\\
+Random Forest & +0.117 & 0.0273 & 0.164\\
+Linear SVM & +0.047 & 0.3750 & 1.000\\
+VQC & +0.097 & 0.0137 & 0.123\\
+\bottomrule\end{tabular}\end{table}

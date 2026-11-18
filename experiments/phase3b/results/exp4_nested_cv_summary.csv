@@ -1,0 +1,2 @@
+protocol,total_outer_folds,cls_roc_auc_mean,cls_roc_auc_std,cls_bacc_mean,cls_bacc_std,reg_mae_mean,reg_mae_std,reg_rmse_mean,reg_rmse_std,reg_r2_mean,reg_r2_std,mean_subj_mae_mean,mean_subj_mae_std
+"Nested GroupKFold(5, 4)",25,0.4423915388096609,0.21349832740898525,0.4574562800891886,0.15470413769109545,8.12682068340928,2.655389723187983,9.65092067558009,2.8830114905456448,-1.8914907585180891,3.483250268796719,8.120151071465285,2.6936420765187696

@@ -1,0 +1,8 @@
+\begin{table*}[!t]\centering\caption{Federated models on the locked-test subjects (mean $\pm$ 95\% $t$-interval, 10 partitions). One client per development subject.}\label{tab:fed}\scriptsize\setlength{\tabcolsep}{3pt}\begin{tabular}{lccccccccc}\toprule
+Model & Acc. & Bal. Acc. & Prec. & Rec. & Macro-F1 & Wtd-F1 & ROC-AUC & PR-AUC & MCC\\\midrule
+FedAvg-LR (K=26) & 0.558$\pm$0.071 & 0.597$\pm$0.071 & 0.471$\pm$0.128 & 0.677$\pm$0.120 & 0.547$\pm$0.069 & 0.564$\pm$0.073 & 0.629$\pm$0.089 & 0.500$\pm$0.113 & 0.185$\pm$0.138\\
+FedAvg-LR (50\% clients) & 0.537$\pm$0.066 & 0.575$\pm$0.061 & 0.451$\pm$0.119 & 0.670$\pm$0.140 & 0.522$\pm$0.062 & 0.539$\pm$0.069 & 0.601$\pm$0.089 & 0.484$\pm$0.117 & 0.149$\pm$0.130\\
+FedProx-LR ($\mu$=0.1) & 0.558$\pm$0.071 & 0.598$\pm$0.071 & 0.471$\pm$0.128 & 0.677$\pm$0.120 & 0.547$\pm$0.069 & 0.564$\pm$0.073 & 0.629$\pm$0.089 & 0.499$\pm$0.113 & 0.185$\pm$0.139\\
+Fed-RF (ensemble) & 0.511$\pm$0.049 & 0.496$\pm$0.027 & 0.382$\pm$0.122 & 0.406$\pm$0.117 & 0.470$\pm$0.037 & 0.512$\pm$0.049 & 0.504$\pm$0.033 & 0.396$\pm$0.116 & -0.011$\pm$0.054\\
+Fed-ET (ensemble) & 0.514$\pm$0.041 & 0.502$\pm$0.028 & 0.383$\pm$0.117 & 0.439$\pm$0.149 & 0.472$\pm$0.030 & 0.513$\pm$0.038 & 0.512$\pm$0.031 & 0.402$\pm$0.111 & 0.001$\pm$0.057\\
+\bottomrule\end{tabular}\end{table*}

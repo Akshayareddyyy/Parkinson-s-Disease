@@ -1,0 +1,185 @@
+\documentclass[conference,a4paper]{IEEEtran}
+\usepackage[T1]{fontenc}\usepackage{cite,amsmath,amssymb,graphicx,booktabs,url,textcomp,microtype}
+\graphicspath{{../figures/}}\hyphenation{Para-meter-ised}
+\setlength{\textfloatsep}{6pt plus 2pt minus 2pt}\setlength{\floatsep}{6pt plus 2pt minus 2pt}\setlength{\intextsep}{6pt plus 2pt minus 2pt}
+\begin{document}
+\title{Quantum Machine Learning-Based Parkinson's Disease Severity Prediction: A Subject-Wise Comparison with Centralized and Federated Learning}
+\author{\IEEEauthorblockN{Author Name(s)}\IEEEauthorblockA{Department, Institution, City, Country\\email@example.org}}
+\maketitle
+\begin{abstract}Voice telemonitoring can follow motor impairment in Parkinson's disease (PD) cheaply, but it is unclear whether federated and quantum learning match conventional models on this task. Using all 5,875 recordings of the 42 patients in the Parkinson's Telemonitoring data set, we classify motor severity (above or below the development-set median of the motor UPDRS score) under one protocol shared by three paradigms: centralized learners (logistic regression, linear SVM, Random Forest, Extra Trees), federated learners (FedAvg and FedProx logistic regression and client-weighted forest ensembles, one client per patient) and two four-qubit variational circuits, a variational quantum classifier (VQC) and a data re-uploading quantum neural network (QNN), run on an ideal simulator with the complete development set. Ten subject-wise partitions (26 development, 7 validation and 9 test patients) give means and 95\% intervals for nine metrics. Extra Trees performs best (ROC-AUC 0.636 $\pm$ 0.078, balanced accuracy 0.611); federated logistic regression is statistically indistinguishable from it (0.629 $\pm$ 0.089), whereas the federated forests and both quantum circuits stay close to chance (ROC-AUC 0.504--0.540), the QNN being significantly worse than Extra Trees after Holm correction. We claim no quantum advantage, report no hardware results and implement no privacy mechanism.\end{abstract}
+\begin{IEEEkeywords}Parkinson's disease, UPDRS, severity classification, federated learning, variational quantum classifier, quantum neural network, voice telemonitoring, subject-wise validation.\end{IEEEkeywords}
+\section{Introduction}
+Voice recordings are easy to collect at home, and dysphonia measures change as Parkinson's disease (PD) progresses, which makes speech attractive for remote monitoring \cite{little2009,tsanas2010}. The Parkinson's Telemonitoring data set holds 5,875 recordings from 42 patients, each labelled with the motor and total scores of the Unified Parkinson's Disease Rating Scale (UPDRS). Federated learning (FL) trains a shared model without pooling raw recordings, which suits distributed health sensing and edge devices \cite{mcmahan2017,rieke2020}, and quantum machine learning (QML) proposes parameterised quantum circuits as classifiers \cite{havlicek2019,schuld2020}. Both are often presented as alternatives to conventional learners but are rarely compared with them under one evaluation protocol.
+
+\textbf{Scope.} This paper addresses the \textit{severity} of motor impairment in patients who already have PD; it is not a diagnostic study, because the data contain no healthy controls.
+
+\textbf{Gap and contributions.} Prior work on this data set mostly predicts UPDRS by regression using randomly chosen records \cite{tsanas2010} or separates patients from controls \cite{tsanas2012}. We found no study that classifies severity for unseen patients, compares centralized, federated and quantum models on identical patient-wise partitions, or specifies how tree ensembles are federated without averaging tree parameters. We contribute (1) a unified protocol with one explicit severity label, ten patient-wise partitions, development-only preprocessing and nine shared metrics; (2) a client-weighted soft-voting scheme for federated Random Forest and Extra Trees, next to FedAvg and FedProx for logistic regression; (3) fully specified four-qubit VQC and QNN circuits trained on the complete development set; and (4) a statistical comparison with intervals, tests against chance, Holm-corrected paired tests and communication and computation costs.
+
+\section{Related Work}
+Little \textit{et al.} showed that dysphonia measures separate PD patients from controls \cite{little2009}, and Tsanas \textit{et al.} predicted UPDRS from 16 voice measures of the telemonitoring recordings \cite{tsanas2010} and later classified PD with a compact set of selected features \cite{tsanas2012}. Because repeated recordings of one person are highly similar, evaluation that mixes a patient's records across training and test sets can differ strongly from evaluation on new patients \cite{saeb2017}; we therefore partition by patient.
+
+Federated averaging trains a parametric model by repeated local optimisation and weighted averaging \cite{mcmahan2017}; FedProx adds a proximal term against client drift under heterogeneity \cite{li2020prox}. Forests have no averageable parameter vector, so federated tree methods use histogram sharing or encryption \cite{li2020gbdt,cheng2021}; reviews cover privacy and heterogeneity \cite{kairouz2021}.
+
+Variational circuits encode classical data into a quantum state and tune gate parameters against a classical loss \cite{mitarai2018,cerezo2021}. Havl\'{\i}\v{c}ek \textit{et al.} proposed a variational classifier and a kernel method with a quantum feature map \cite{havlicek2019}; Schuld \textit{et al.} analysed circuit-centric classifiers \cite{schuld2020}; and P\'erez-Salinas \textit{et al.} showed that re-uploading the data inside the circuit raises expressivity \cite{perez2020}. Trainability can be limited by barren plateaus \cite{mcclean2018} and devices are small and noisy \cite{preskill2018}, so simulated few-qubit results cannot show hardware advantage.
+
+\section{Dataset and Problem Formulation}
+\textbf{Data.} The data set (UCI Parkinson's Telemonitoring) contains N = 5,875 recordings from 42 PD patients (101--168 per patient) collected over six months, with no missing values (verified). Each row has the patient identifier, age, sex, test\_time (days since recruitment), motor\_UPDRS, total\_UPDRS and 16 voice measures: five jitter, six shimmer, NHR, HNR, RPDE, DFA and PPE \cite{tsanas2010}. \textbf{All 5,875 recordings and all 42 patients are used; no sampling or subsetting is applied to any model.}
+
+\textbf{Target.} The data contain no categorical severity label, so we define one explicitly:
+
+\begin{equation}y_i=\mathbf{1}[s_i\ge\tau],\quad \tau=\mathrm{median}\{s_j: j\in\mathcal{D}\}\label{eq:y}\end{equation}
+where $s_{i}$ is the motor\_UPDRS score of record i and D the development set; the threshold is a development-only statistic applied unchanged to validation and test patients. The classes are balanced on D by construction but not elsewhere (Table~\ref{tab:data}). The label is population-relative, not a clinical cut-off. Motor\_UPDRS and total\_UPDRS serve only to define the label and are not model inputs; the 19 input features are age, sex, test\_time and the 16 voice measures. The patient identifier is used only for grouping.
+
+\textbf{Partitioning.} For each of ten seeds the 42 patients are permuted and assigned to development D (26), validation V (7) and test T (9), so no patient appears in two sets (Table~\ref{tab:data}, Fig.~\ref{fig:partfed} shows the federated clients). The ten partitions reuse the same patients and are therefore not independent. In partition 0, 12 of the 26 development patients have only class-0 records, 9 only class-1 records and 5 both, so the label is largely a per-patient attribute; this strongly non-IID structure matters for federated learning.
+
+\begin{table}[!t]\centering\caption{Patient-wise partition. Columns 2--4: partition 0 ($\tau$ = 22.82); last two: range over ten partitions.}\label{tab:data}\scriptsize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lccccc}\toprule
+Set & Patients & Records & Pos. rate & Records (range) & Pos. rate (range)\\\midrule
+Development & 26 & 3578 & 0.500 & 3,517--3,697 & 0.50--0.50\\
+Validation & 7 & 991 & 0.411 & 889--1,055 & 0.19--0.77\\
+Test & 9 & 1306 & 0.351 & 1,202--1,336 & 0.30--0.80\\
+\bottomrule\end{tabular}\end{table}
+\section{Methodology}
+\textbf{Preprocessing.} Median imputation (a no-op here) and standardisation are fitted on D only and applied to V and T; all 19 features enter every classical and federated model. The quantum models add a PCA to four components (fitted on D) and min--max scaling to [0, $\pi$] with clipping. Imbalance is handled by reporting balanced accuracy, macro-F1 and the Matthews correlation coefficient (MCC) \cite{chicco2020}, not by re-weighting.
+
+\textbf{Model selection.} Hyper-parameters are chosen by five-fold patient-grouped cross-validation within D, with balanced accuracy as criterion. The validation patients are used only to report generalisation and convergence, and the test patients only for final scoring. Federated forests reuse the depth and leaf size chosen for the matching centralized forest and are not tuned separately.
+
+\textbf{Metrics.} Accuracy, balanced accuracy, precision, recall (for the severe class), macro- and weighted-F1, ROC-AUC, PR-AUC (average precision) and MCC. Hard predictions use probability 0.5 (decision value 0 for the SVM). Intervals are two-sided 95\% \textit{t}-intervals over ten partitions; we add a patient-cluster bootstrap (1,000 resamples) for partition 0. \textbf{Set-up.} Seeds 0--9 fix partitions and models on a two-core CPU container (Python, scikit-learn, PennyLane); federated clients are simulated sequentially, and communication is counted analytically (LR) or from serialised sizes (forests).
+
+\begin{figure*}[!t]\centering \includegraphics[width=0.660\textwidth]{fig1_overall_architecture}\caption{Overall architecture: the severity label is defined first, models see only the 19 input features, and all three paradigms share the same patient-wise partitions, development-only preprocessing and metrics.}\label{fig:overall}\end{figure*}
+\section{Centralized Machine Learning}
+All learners see the pooled development set (Fig.~\ref{fig:overall}). \textbf{Logistic regression} (LR) minimises the regularised cross-entropy with \textit{C} $\in$ {0.01, 0.1, 1, 10}. The \textbf{linear SVM} minimises $\frac12$$\|$w$\|$$^2$ + \textit{C} $\Sigma$ max(0, 1 $-$ $\tilde y$$_i$(w$^{\top}$x$_i$ + b))$^2$ with \textit{C} $\in$ {10$^{-3}$, \ldots{}, 1}. \textbf{Random Forest} (RF) averages 200 bootstrap trees grown with Gini impurity and random feature subsets \cite{breiman2001}; \textbf{Extra Trees} (ET) uses the full sample and random split thresholds \cite{geurts2006}; both predict the mean of the tree probabilities. For the forests the grid is depth {4, 8, none} $\times$ minimum leaf size {1, 10, 40} (Table~\ref{tab:hp}); implementation is scikit-learn \cite{pedregosa2011}. Selected forest settings vary across partitions, so 26 patients do not identify a stable optimum.
+
+\begin{table}[!t]\centering\caption{Settings. Selected values over ten partitions in parentheses (count).}\label{tab:hp}\scriptsize\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lp{6.2cm}}\toprule
+Model & Setting\\\midrule
+LR & \textit{C}: 0.01 (6), 1 (3), 10 (1)\\
+Linear SVM & \textit{C}: 0.001 (6), 1 (3), 0.1 (1)\\
+RF, 200 trees & depth/leaf: 4/40 (3), none/1 (3), 4/10 (2), 4/1 (1), none/10 (1)\\
+ET, 200 trees & none/1 (5), 4/40 (3), 4/1 (1), 8/40 (1)\\
+FedAvg / FedProx & 40 rounds, 5 local full-batch steps, lr 0.1, $\mu$ $\in$ {0, 0.1}, participation 1.0 or 0.5\\
+Federated forests & 20 trees per client, depth and leaf of the centralized forest\\
+VQC / QNN & 4 qubits, 3 layers, Adam lr 0.05, batch 128, 40 epochs, all development records\\
+\bottomrule\end{tabular}\end{table}
+\section{Federated Learning}
+Each of the K = 26 development patients is one client holding $n_{k}$ records ($\Sigma$ $n_{k}$ = n). The data are strongly non-IID, since most clients contain a single class. The scaler is fitted on pooled development data, which in practice would require sharing feature means and variances.
+
+\textbf{Logistic regression.} In round t the server samples a client set $S_{t}$ (fraction 1.0 or 0.5), broadcasts $w_{t}$, and every selected client takes E = 5 full-batch gradient steps on $F_{k}$(w) + ($\mu$/2)$\|$w $-$ $w_{t}$$\|$$^2$ ($\mu$ = 0 gives FedAvg, $\mu$ = 0.1 FedProx). The server aggregates
+
+\begin{equation}\mathbf{w}_{t+1}=\sum_{k\in S_t}\frac{n_k}{\sum_{j\in S_t}n_j}\,\mathbf{w}_k^{t+1},\label{eq:fedavg}\end{equation}
+with the same rule for the bias. A round moves 2|$S_{t}$|(d + 1) 64-bit numbers, so 40 rounds with 26 clients cost 332.8 kB.
+
+\textbf{Forests.} Averaging tree structure or thresholds is undefined, so FedAvg is not applied to forests. Each client fits a local forest of 20 trees on its own records and uploads it once; the server forms the client-weighted soft-vote ensemble
+
+\begin{equation}\hat p(\mathbf{x})=\sum_{k=1}^{K}\frac{n_k}{n}\,\hat p_k(\mathbf{x}),\qquad \hat p_k(\mathbf{x})=\frac{1}{20}\sum_{t=1}^{20}p_{k,t}(\mathbf{x}),\label{eq:ens}\end{equation}
+which is a single forest of 20K trees with client-dependent weights. Upload is one-shot: 331 kB (RF) and 590 kB (ET) on average, so there is no convergence curve; we instead vary the number of contributing clients (Fig.~\ref{fig:fed}).
+
+\textbf{Privacy limits.} Shared weights reveal information through gradient inversion \cite{zhu2019}, and uploaded trees expose split thresholds and leaf distributions. No secure aggregation \cite{bonawitz2017} or differential privacy \cite{abadi2016} is implemented, so no privacy guarantee is claimed.
+
+\begin{figure}[!t]\centering \includegraphics[width=0.800\columnwidth]{fig5_federated_architecture}\caption{Federated architecture: weights (LR) or local forests are exchanged; raw recordings never leave a client.}\label{fig:partfed}\end{figure}
+\section{Quantum Machine Learning}
+\textbf{Configuration.} Both circuits use n = 4 qubits starting in |0$\rangle$. A standardised record is projected by PCA to R$^4$ and scaled to $x_{i}$ $\in$ [0, $\pi$]. This projection is a strong information bottleneck but keeps the simulation exact and the circuits shallow.
+
+\textbf{VQC.} A fixed feature map applies H and $R_{Z}$($x_{i}$) on each qubit, followed by a ring of ZZ interactions CNOT$\cdot$$R_{Z}$($x_{i}$ $x_{i+1}$)$\cdot$CNOT. A trainable ansatz of L = 3 layers applies $R_{Y}$($\theta$)$R_{Z}$($\varphi$) on every qubit and a CNOT ring (Fig.~\ref{fig:circ}a). With encoding unitary $\Phi$(x) and trainable unitary U($\theta$),
+
+\begin{equation}f(\mathbf{x};\boldsymbol\theta)=\langle 0|\Phi^\dagger U^\dagger Z_0\,U\Phi|0\rangle,\qquad p(y{=}1\mid\mathbf{x})=\tfrac{1-f}{2}.\label{eq:vqc}\end{equation}
+It has 24 trainable parameters and 56 gates (20 CNOTs).
+
+\textbf{QNN.} The QNN uses data re-uploading \cite{perez2020}: in each of L = 3 layers every qubit receives $R_{Y}$(w $x_{i}$ + c) with trainable scale w and offset c, then $R_{Z}$($\theta$) and a CNOT ring (Fig.~\ref{fig:circ}b). The four expectations e = ($\langle$$Z_{0}$$\rangle$, \ldots{}, $\langle$$Z_{3}$$\rangle$) feed a classical linear read-out p = $\sigma$(v$^{\top}$e + b). It has 41 trainable parameters and 36 gates (12 CNOTs).
+
+\textbf{QNN versus VQC.} The VQC encodes once with fixed angles and reads one observable; the QNN re-encodes in every layer with trainable scaling and reads four observables through a classical head, making it a hybrid model with more parameters.
+
+\textbf{Training and simulation.} Loss is binary cross-entropy, minimised with Adam (lr 0.05, batch 128, 40 epochs) on \textit{all} development records of each partition (3,517--3,697). Circuits are simulated noiselessly with exact state vectors in PennyLane \cite{bergholm2018}, with gradients by back-propagation through the simulator. \textbf{No experiment was run on quantum hardware and no shot or device noise was modelled.} On hardware each rotation gradient would follow the parameter-shift rule \cite{mitarai2018}, needing 2P circuit evaluations per record for P parameters. State-vector simulation costs O(G$\cdot$2$^n$) per record for G gates, cheap at n = 4 but exponential in n; training took about 28 s (VQC) and 30 s (QNN) per run.
+
+\begin{figure*}[!t]\centering \includegraphics[width=0.620\textwidth]{fig8a_vqc_circuit}\\[2pt]\includegraphics[width=0.620\textwidth]{fig8b_qnn_circuit}\caption{Circuits drawn from the executed PennyLane code: (a) VQC with feature map and three trainable layers, measured on qubit 0; (b) QNN with three data re-uploading layers, all four qubits measured.}\label{fig:circ}\end{figure*}
+\section{Results and Discussion}
+\begin{table*}[!t]\centering\caption{Test results (mean $\pm$ 95\% \textit{t}-interval over ten patient-wise partitions; positive class = more severe) for centralized, federated and quantum models.}\label{tab:res}\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lccccccccc}\toprule
+Model & Acc. & Bal. acc. & Prec. & Rec. & Macro-F1 & Wtd-F1 & ROC-AUC & PR-AUC & MCC\\\midrule
+\midrule
+\textbf{Centralized} &  &  &  &  &  &  &  &  & \\
+LR & 0.533 $\pm$ 0.067 & 0.562 $\pm$ 0.061 & 0.444 $\pm$ 0.115 & 0.640 $\pm$ 0.099 & 0.519 $\pm$ 0.061 & 0.539 $\pm$ 0.070 & 0.591 $\pm$ 0.075 & 0.482 $\pm$ 0.111 & 0.117 $\pm$ 0.119\\
+Linear SVM & 0.529 $\pm$ 0.068 & 0.561 $\pm$ 0.059 & 0.445 $\pm$ 0.119 & 0.632 $\pm$ 0.091 & 0.517 $\pm$ 0.062 & 0.536 $\pm$ 0.070 & 0.590 $\pm$ 0.072 & 0.484 $\pm$ 0.112 & 0.113 $\pm$ 0.115\\
+Random Forest & 0.514 $\pm$ 0.075 & 0.540 $\pm$ 0.084 & 0.418 $\pm$ 0.155 & 0.582 $\pm$ 0.133 & 0.494 $\pm$ 0.071 & 0.516 $\pm$ 0.083 & 0.520 $\pm$ 0.109 & 0.395 $\pm$ 0.147 & 0.068 $\pm$ 0.147\\
+Extra Trees & 0.582 $\pm$ 0.069 & 0.611 $\pm$ 0.067 & 0.486 $\pm$ 0.134 & 0.669 $\pm$ 0.108 & 0.566 $\pm$ 0.063 & 0.588 $\pm$ 0.072 & 0.636 $\pm$ 0.078 & 0.486 $\pm$ 0.131 & 0.210 $\pm$ 0.125\\
+\midrule
+\textbf{Federated} &  &  &  &  &  &  &  &  & \\
+FedAvg-LR & 0.558 $\pm$ 0.071 & 0.597 $\pm$ 0.071 & 0.471 $\pm$ 0.128 & 0.677 $\pm$ 0.120 & 0.547 $\pm$ 0.069 & 0.564 $\pm$ 0.073 & 0.629 $\pm$ 0.089 & 0.500 $\pm$ 0.113 & 0.185 $\pm$ 0.138\\
+FedAvg-LR, 50\% & 0.537 $\pm$ 0.066 & 0.575 $\pm$ 0.061 & 0.451 $\pm$ 0.119 & 0.670 $\pm$ 0.140 & 0.522 $\pm$ 0.062 & 0.539 $\pm$ 0.069 & 0.601 $\pm$ 0.089 & 0.484 $\pm$ 0.117 & 0.149 $\pm$ 0.130\\
+FedProx-LR & 0.558 $\pm$ 0.071 & 0.598 $\pm$ 0.071 & 0.471 $\pm$ 0.128 & 0.677 $\pm$ 0.120 & 0.547 $\pm$ 0.069 & 0.564 $\pm$ 0.073 & 0.629 $\pm$ 0.089 & 0.499 $\pm$ 0.113 & 0.185 $\pm$ 0.139\\
+Fed-RF & 0.511 $\pm$ 0.049 & 0.496 $\pm$ 0.027 & 0.382 $\pm$ 0.122 & 0.406 $\pm$ 0.117 & 0.470 $\pm$ 0.037 & 0.512 $\pm$ 0.049 & 0.504 $\pm$ 0.033 & 0.396 $\pm$ 0.116 & -0.011 $\pm$ 0.054\\
+Fed-ET & 0.514 $\pm$ 0.041 & 0.502 $\pm$ 0.028 & 0.383 $\pm$ 0.117 & 0.439 $\pm$ 0.149 & 0.472 $\pm$ 0.030 & 0.513 $\pm$ 0.038 & 0.512 $\pm$ 0.031 & 0.402 $\pm$ 0.111 & 0.001 $\pm$ 0.057\\
+\midrule
+\textbf{Quantum (simulated)} &  &  &  &  &  &  &  &  & \\
+VQC & 0.513 $\pm$ 0.069 & 0.538 $\pm$ 0.070 & 0.416 $\pm$ 0.134 & 0.604 $\pm$ 0.114 & 0.496 $\pm$ 0.060 & 0.517 $\pm$ 0.076 & 0.540 $\pm$ 0.095 & 0.420 $\pm$ 0.133 & 0.066 $\pm$ 0.129\\
+QNN & 0.517 $\pm$ 0.038 & 0.518 $\pm$ 0.047 & 0.396 $\pm$ 0.124 & 0.515 $\pm$ 0.121 & 0.492 $\pm$ 0.036 & 0.527 $\pm$ 0.042 & 0.523 $\pm$ 0.062 & 0.390 $\pm$ 0.124 & 0.030 $\pm$ 0.088\\
+\bottomrule\end{tabular}\end{table*}
+\textbf{Centralized models.} Table~\ref{tab:res} and Fig.~\ref{fig:acc} show that Extra Trees is best (balanced accuracy 0.611, ROC-AUC 0.636, MCC 0.210); LR and the linear SVM reach ROC-AUC $\approx$ 0.59, and RF is at chance (0.520) with a wide interval. Training balanced accuracy of RF and ET (0.89, 0.88) far exceeds their test value: the forests fit patient-specific structure that does not transfer. ET gains through recall of the severe class (0.669) at the cost of precision (0.486).
+
+\textbf{Federated models.} FedAvg-LR (0.629) and FedProx (0.629; same ROC-AUC to three decimals) are close to ET and above centralized LR, whereas the one-shot federated forests sit at chance (0.504, 0.512). Training loss falls monotonically with full participation (Fig.~\ref{fig:fed}a) and test ROC-AUC settles near 0.63 (Fig.~\ref{fig:fed}b). Sampling 50\% of clients halves traffic (166 versus 333 kB) and lowers ROC-AUC to 0.601 with noisier convergence; FedProx brings no gain. For forests, adding clients does not help (Fig.~\ref{fig:fed}c): a local forest trained on a single-class client mostly learns that patient's class.
+
+\textbf{Quantum models.} The VQC (ROC-AUC 0.540 $\pm$ 0.095, MCC 0.066) and QNN (0.523 $\pm$ 0.062, MCC 0.030) stay close to chance, although they were trained on the entire development set. Training loss decreases (QNN 0.65 $\to$ 0.58, VQC 0.66 $\to$ 0.64) while validation loss rises for the QNN (0.72 $\to$ 0.88) and stays flat for the VQC (0.71 $\to$ 0.72) (Fig.~\ref{fig:cost}c), indicating over-fitting by the QNN even with 41 parameters. Limits of the circuits cannot be separated from limits of the data and of the four-component projection: the result is \textit{no evidence of benefit under this protocol}, not evidence against QML.
+
+\textbf{Overall.} The ordering by ROC-AUC is ET > FedAvg-LR $\approx$ FedProx > LR $\approx$ SVM > VQC > RF $\approx$ QNN $\approx$ Fed-ET $\approx$ Fed-RF. Federated logistic regression is thus competitive with its centralized counterpart. The ROC and precision--recall curves and confusion matrices for partition 0 (Fig.~\ref{fig:roc}) agree: Fed-ET predicts the milder class for most records, and the VQC and QNN curves follow the diagonal. Performance varies strongly between patients: ET accuracy per held-out patient ranges from 0 to 1 and exceeds 0.5 for 23 of the 37 patients that were ever in a test set (62\%). The partition-0 patient-cluster bootstrap interval for ET ROC-AUC is [0.38, 0.97], so on a single partition chance cannot be excluded even for the best model.
+
+\begin{figure*}[!t]\centering \includegraphics[width=0.700\textwidth]{fig9_accuracy_auc_comparison}\caption{Balanced accuracy and ROC-AUC (mean $\pm$ 95\% interval over ten partitions); dashed line = chance.}\label{fig:acc}\end{figure*}
+\begin{figure*}[!t]\centering \includegraphics[width=0.800\textwidth]{figR_roc_pr_cm}\caption{Partition-0 test patients: (a) ROC and (b) precision--recall curves of LR, ET, FedAvg-LR, Fed-ET, VQC and QNN; confusion matrices (rows: true class) of (c) ET, (d) FedAvg-LR and (e) VQC.}\label{fig:roc}\end{figure*}
+\begin{figure*}[!t]\centering \includegraphics[width=0.780\textwidth]{figF_federated}\caption{Federated analysis (mean over ten partitions): (a) training log-loss and (b) test ROC-AUC against communication rounds for FedAvg, FedAvg with 50\% participation and FedProx; (c) forest ensembles against the number of contributing clients; (d) total communication.}\label{fig:fed}\end{figure*}
+\section{Statistical and Computational Analysis}
+\begin{table}[!t]\centering\caption{Tests over ten partitions (Holm-corrected \textit{p}). \textit{p}$_1$: ROC-AUC against 0.5 (one-sample \textit{t}-test). $\Delta$: ET minus model; \textit{p}$_2$: Wilcoxon signed-rank test of ET against the model.}\label{tab:stats}\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{lcccc}\toprule
+Model & AUC & \textit{p}$_1$ & $\Delta$ AUC & \textit{p}$_2$\\\midrule
+Extra Trees & 0.636 & 0.036 & -- & --\\
+FedAvg-LR & 0.629 & 0.094 & +0.008 & 1.000\\
+FedProx-LR & 0.629 & 0.094 & +0.008 & 1.000\\
+FedAvg-LR, 50\% & 0.601 & 0.183 & +0.036 & 1.000\\
+LR & 0.591 & 0.160 & +0.046 & 1.000\\
+Linear SVM & 0.590 & 0.156 & +0.047 & 1.000\\
+VQC & 0.540 & 1.000 & +0.097 & 0.123\\
+Random Forest & 0.520 & 1.000 & +0.117 & 0.164\\
+QNN & 0.523 & 1.000 & +0.113 & 0.039\\
+Fed-ET & 0.512 & 1.000 & +0.124 & 0.123\\
+Fed-RF & 0.504 & 1.000 & +0.133 & 0.123\\
+\bottomrule\end{tabular}\end{table}
+Against chance (ROC-AUC = 0.5), only Extra Trees remains significant after Holm correction \cite{holm1979} across the 11 models (\textit{p} = 0.0033 uncorrected, 0.036 corrected); LR, SVM, FedAvg-LR and FedProx are nominally significant (\textit{p} between 0.009 and 0.023) but not after correction (Table~\ref{tab:stats}). In paired Wilcoxon tests \cite{wilcoxon1945}, ET exceeds the QNN (corrected \textit{p} = 0.039); its advantage over the VQC, RF and the federated forests is nominal (uncorrected \textit{p} = 0.014--0.027) but not significant after correction, and ET is not distinguishable from FedAvg-LR, FedProx, LR or the SVM (\textit{p} $\geq$ 1.00). The data support ``ET is above chance'' and ``ET beats the QNN'', not ``centralized beats federated logistic regression''.
+
+\textbf{These tests are optimistic.} The ten partitions resample the same 42 patients, so test sets overlap and the ten observations are positively correlated; the effective sample size is closer to the number of patients than to ten. The smallest attainable two-sided Wilcoxon \textit{p} with ten pairs is 0.002. Intervals and \textit{p}-values are indicative, not confirmatory.
+
+\textbf{Computational cost} (Fig.~\ref{fig:cost}a,b). LR and the SVM train in about 0.01 s, ET in 0.4 s and RF in 0.9 s; the simulated VQC and QNN need about 28--30 s on the full development set, i.e. 30 to 3,000 times more, with inference of about 30 ms for roughly 1,300 test records against about 1 ms for LR. The simulator is exponential in qubit count and hardware would add shot costs, so this comparison favours the quantum models if anything. FedAvg communicates 333 kB over 40 rounds and the forest ensembles 331--590 kB once.
+
+\begin{figure*}[!t]\centering \includegraphics[width=0.780\textwidth]{figQ_cost_training}\caption{(a) Training time and (b) test inference time (log scale) of centralized and simulated quantum models; (c) QNN and VQC training and validation loss (mean over ten partitions).}\label{fig:cost}\end{figure*}
+\section{Limitations and Threats to Validity}
+With 42 patients any partition has nine test patients, and the patient-cluster bootstrap interval spans most of the unit interval; the ten partitions are dependent. The median-threshold label is not a clinical severity class and results may differ for other cut-offs. Real deployments add device and site heterogeneity beyond single-patient clients. Selected hyper-parameters change across partitions, and validation sets of seven patients are noisy (mean validation ROC-AUC 0.44--0.52 against test values of 0.50--0.64), so they are unreliable for early stopping. The quantum models use one circuit depth, one optimiser setting and a four-component projection, with no tuning, noise model or hardware. Federated forests inherit centralized settings and a pooled scaler; no differential privacy, secure aggregation or attack evaluation is implemented.
+
+\section{Conclusion and Future Work}
+Under a unified patient-wise protocol on the complete Parkinson's Telemonitoring data, centralized Extra Trees reaches ROC-AUC 0.636 $\pm$ 0.078, federated logistic regression is statistically indistinguishable from it (0.629) at a communication cost of 333 kB, the one-shot federated forests are at chance, and the simulated four-qubit VQC and QNN stay close to chance, the QNN being significantly worse than ET. We found no evidence of quantum advantage and make no claim about hardware. Future work should use larger multi-site cohorts, predict continuous UPDRS, add federated boosting with secure aggregation and measured differential privacy, and test the quantum models with tuned depth, noise models and hardware.
+
+\begin{thebibliography}{99}\footnotesize
+\bibitem{little2009} M. A. Little, P. E. McSharry, E. J. Hunter, J. Spielman, and L. O. Ramig, ``Suitability of dysphonia measurements for telemonitoring of Parkinson's disease,'' \textit{IEEE Trans. Biomed. Eng.}, vol. 56, no. 4, pp. 1015--1022, Apr. 2009, doi: 10.1109/TBME.2008.2005954.
+\bibitem{tsanas2010} A. Tsanas, M. A. Little, P. E. McSharry, and L. O. Ramig, ``Accurate telemonitoring of Parkinson's disease progression by noninvasive speech tests,'' \textit{IEEE Trans. Biomed. Eng.}, vol. 57, no. 4, pp. 884--893, Apr. 2010, doi: 10.1109/TBME.2009.2036000.
+\bibitem{mcmahan2017} H. B. McMahan, E. Moore, D. Ramage, S. Hampson, and B. Ag\"uera y Arcas, ``Communication-efficient learning of deep networks from decentralized data,'' in \textit{Proc. 20th Int. Conf. Artif. Intell. Statist. (AISTATS)}, PMLR vol. 54, 2017, pp. 1273--1282.
+\bibitem{rieke2020} N. Rieke \textit{et al.}, ``The future of digital health with federated learning,'' \textit{npj Digit. Med.}, vol. 3, Art. no. 119, 2020, doi: 10.1038/s41746-020-00323-1.
+\bibitem{havlicek2019} V. Havl\'{\i}\v{c}ek \textit{et al.}, ``Supervised learning with quantum-enhanced feature spaces,'' \textit{Nature}, vol. 567, no. 7747, pp. 209--212, 2019, doi: 10.1038/s41586-019-0980-2.
+\bibitem{schuld2020} M. Schuld, A. Bocharov, K. M. Svore, and N. Wiebe, ``Circuit-centric quantum classifiers,'' \textit{Phys. Rev. A}, vol. 101, no. 3, Art. no. 032308, 2020, doi: 10.1103/PhysRevA.101.032308.
+\bibitem{tsanas2012} A. Tsanas, M. A. Little, P. E. McSharry, J. Spielman, and L. O. Ramig, ``Novel speech signal processing algorithms for high-accuracy classification of Parkinson's disease,'' \textit{IEEE Trans. Biomed. Eng.}, vol. 59, no. 5, pp. 1264--1271, May 2012, doi: 10.1109/TBME.2012.2183367.
+\bibitem{saeb2017} S. Saeb, L. Lonini, A. Jayaraman, D. C. Mohr, and K. P. Kording, ``The need to approximate the use-case in clinical machine learning,'' \textit{GigaScience}, vol. 6, no. 5, pp. 1--9, 2017, doi: 10.1093/gigascience/gix019.
+\bibitem{li2020prox} T. Li, A. K. Sahu, M. Zaheer, M. Sanjabi, A. Talwalkar, and V. Smith, ``Federated optimization in heterogeneous networks,'' in \textit{Proc. Mach. Learn. Syst. (MLSys)}, vol. 2, 2020.
+\bibitem{li2020gbdt} Q. Li, Z. Wen, and B. He, ``Practical federated gradient boosting decision trees,'' in \textit{Proc. AAAI Conf. Artif. Intell.}, vol. 34, no. 4, 2020, pp. 4642--4649, doi: 10.1609/aaai.v34i04.5895.
+\bibitem{cheng2021} K. Cheng, T. Fan, Y. Jin, Y. Liu, T. Chen, D. Papadopoulos, and Q. Yang, ``SecureBoost: A lossless federated learning framework,'' \textit{IEEE Intell. Syst.}, vol. 36, no. 6, pp. 87--98, 2021, doi: 10.1109/MIS.2021.3082561.
+\bibitem{kairouz2021} P. Kairouz \textit{et al.}, ``Advances and open problems in federated learning,'' \textit{Found. Trends Mach. Learn.}, vol. 14, no. 1--2, pp. 1--210, 2021.
+\bibitem{mitarai2018} K. Mitarai, M. Negoro, M. Kitagawa, and K. Fujii, ``Quantum circuit learning,'' \textit{Phys. Rev. A}, vol. 98, no. 3, Art. no. 032309, 2018, doi: 10.1103/PhysRevA.98.032309.
+\bibitem{cerezo2021} M. Cerezo \textit{et al.}, ``Variational quantum algorithms,'' \textit{Nat. Rev. Phys.}, vol. 3, pp. 625--644, 2021, doi: 10.1038/s42254-021-00348-9.
+\bibitem{perez2020} A. P\'erez-Salinas, A. Cervera-Lierta, E. Gil-Fuster, and J. I. Latorre, ``Data re-uploading for a universal quantum classifier,'' \textit{Quantum}, vol. 4, p. 226, 2020, doi: 10.22331/q-2020-02-06-226.
+\bibitem{mcclean2018} J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush, and H. Neven, ``Barren plateaus in quantum neural network training landscapes,'' \textit{Nat. Commun.}, vol. 9, Art. no. 4812, 2018, doi: 10.1038/s41467-018-07090-4.
+\bibitem{preskill2018} J. Preskill, ``Quantum computing in the NISQ era and beyond,'' \textit{Quantum}, vol. 2, p. 79, 2018, doi: 10.22331/q-2018-08-06-79.
+\bibitem{chicco2020} D. Chicco and G. Jurman, ``The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation,'' \textit{BMC Genomics}, vol. 21, Art. no. 6, 2020, doi: 10.1186/s12864-019-6413-7.
+\bibitem{breiman2001} L. Breiman, ``Random forests,'' \textit{Mach. Learn.}, vol. 45, no. 1, pp. 5--32, 2001, doi: 10.1023/A:1010933404324.
+\bibitem{geurts2006} P. Geurts, D. Ernst, and L. Wehenkel, ``Extremely randomized trees,'' \textit{Mach. Learn.}, vol. 63, no. 1, pp. 3--42, 2006, doi: 10.1007/s10994-006-6226-1.
+\bibitem{pedregosa2011} F. Pedregosa \textit{et al.}, ``Scikit-learn: Machine learning in Python,'' \textit{J. Mach. Learn. Res.}, vol. 12, pp. 2825--2830, 2011.
+\bibitem{zhu2019} L. Zhu, Z. Liu, and S. Han, ``Deep leakage from gradients,'' in \textit{Adv. Neural Inf. Process. Syst. (NeurIPS)}, vol. 32, 2019.
+\bibitem{bonawitz2017} K. Bonawitz \textit{et al.}, ``Practical secure aggregation for privacy-preserving machine learning,'' in \textit{Proc. ACM SIGSAC Conf. Comput. Commun. Secur. (CCS)}, 2017, pp. 1175--1191, doi: 10.1145/3133956.3133982.
+\bibitem{abadi2016} M. Abadi \textit{et al.}, ``Deep learning with differential privacy,'' in \textit{Proc. ACM SIGSAC Conf. Comput. Commun. Secur. (CCS)}, 2016, pp. 308--318, doi: 10.1145/2976749.2978318.
+\bibitem{bergholm2018} V. Bergholm \textit{et al.}, ``PennyLane: Automatic differentiation of hybrid quantum-classical computations,'' arXiv:1811.04968, 2018.
+\bibitem{holm1979} S. Holm, ``A simple sequentially rejective multiple test procedure,'' \textit{Scand. J. Statist.}, vol. 6, no. 2, pp. 65--70, 1979.
+\bibitem{wilcoxon1945} F. Wilcoxon, ``Individual comparisons by ranking methods,'' \textit{Biometrics Bull.}, vol. 1, no. 6, pp. 80--83, 1945.
+\end{thebibliography}\end{document}
