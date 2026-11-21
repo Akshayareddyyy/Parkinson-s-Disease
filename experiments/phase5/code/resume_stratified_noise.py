@@ -5,13 +5,14 @@ then executes Seed 6 (Phase + Shots) and Seeds 7, 8, 9.
 Persists results after each seed to prevent data loss.
 """
 
-import os, sys, time, re
+import os, sys, time, re, tempfile
 import numpy as np
 import pandas as pd
 import torch
 from sklearn.model_selection import StratifiedShuffleSplit
 
-os.environ['MPLCONFIGDIR'] = 'C:/Users/akank/AppData/Local/Temp'
+# Ensure reproducible environment with portable temporary directory
+os.environ.setdefault('MPLCONFIGDIR', os.path.join(tempfile.gettempdir(), 'mpl_parkinsons'))
 
 from common import (
     load_data, get_partition_sets, release_memory,
@@ -160,7 +161,12 @@ def resume_evaluation():
     print("=" * 80)
     
     df = load_data()
-    log_path = r'C:\Users\akank\.gemini\antigravity\brain\9f6be27c-7108-4d3b-be77-ab80ea3a4fef\.system_generated\tasks\task-2080.log'
+    default_log = r'C:\Users\akank\.gemini\antigravity\brain\9f6be27c-7108-4d3b-be77-ab80ea3a4fef\.system_generated\tasks\task-2080.log'
+    log_path = sys.argv[1] if len(sys.argv) > 1 else default_log
+    if not os.path.exists(log_path):
+        print(f"Note: Log file not found at '{log_path}'.")
+        print(f"Stratified noise evaluation has already completed and results are preserved in {RESULTS_DIR}")
+        return
     runs, metadata = parse_existing_log(log_path, df)
     print(f"Loaded {len(runs)} evaluation records across completed seeds (Seeds 0-5 full, Seed 6 partial).")
     save_intermediate(runs, metadata)

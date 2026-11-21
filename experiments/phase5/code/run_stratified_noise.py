@@ -20,14 +20,14 @@ Protocol:
   - Strictly preserves all frozen checkpoints and historical files.
 """
 
-import os, sys, time
+import os, sys, time, tempfile
 import numpy as np
 import pandas as pd
 import torch
 from sklearn.model_selection import StratifiedShuffleSplit
 
-# Ensure reproducible environment
-os.environ['MPLCONFIGDIR'] = 'C:/Users/akank/AppData/Local/Temp'
+# Ensure reproducible environment with portable temporary directory
+os.environ.setdefault('MPLCONFIGDIR', os.path.join(tempfile.gettempdir(), 'mpl_parkinsons'))
 
 from common import (
     load_data, get_partition_sets, release_memory, get_process_memory_mb,

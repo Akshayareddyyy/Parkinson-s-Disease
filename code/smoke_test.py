@@ -1,7 +1,7 @@
 import os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-print("=== SMOKE TEST: PARKISONS SEVERITY CODEBASE ===")
+print("=== SMOKE TEST: PARKINSON'S SEVERITY CODEBASE ===")
 
 # 1. Test common.py and dataset loading
 print("[1/5] Testing common.py and dataset loading...")
